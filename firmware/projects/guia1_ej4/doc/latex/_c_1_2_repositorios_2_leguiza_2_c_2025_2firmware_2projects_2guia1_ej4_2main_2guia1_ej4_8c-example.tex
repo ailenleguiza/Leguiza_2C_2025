@@ -1,0 +1,171 @@
+\doxysection{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia1\+\_\+ej4/main/guia1\+\_\+ej4.\+c}
+\hypertarget{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}{}\label{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}Convierte un número de 32 bits a un arreglo BCD.
+
+Convierte un número de 32 bits a un arreglo BCDEsta función toma un número entero de 32 bits y lo convierte a formato BCD, almacenando cada dígito decimal en posiciones separadas del arreglo. El dígito más significativo se almacena en bcd\+\_\+number\mbox{[}0\mbox{]} y el menos significativo en bcd\+\_\+number\mbox{[}digits-\/1\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Número de 32 bits a convertir \\
+\hline
+{\em digits} & Cantidad de dígitos de salida deseados \\
+\hline
+{\em bcd\+\_\+number} & Puntero al arreglo donde se almacenarán los dígitos BCD \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int8\+\_\+t Código de retorno (0 = éxito)
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+bcd\+\_\+number\mbox{[}0\mbox{]} será el dígito más significativo y bcd\+\_\+number\mbox{[}digits-\/1\mbox{]} el menos significativo 
+
+El arreglo bcd\+\_\+number debe tener al menos \textquotesingle{}digits\textquotesingle{} posiciones
+\end{DoxyNote}
+uint32\+\_\+t numero = 123; uint8\+\_\+t digitos = 3; uint8\+\_\+t bcd\+\_\+array\mbox{[}3\mbox{]}; convert\+To\+Bcd\+Array(numero, digitos, bcd\+\_\+array); // Resultado\+: bcd\+\_\+array\mbox{[}0\mbox{]}=1, bcd\+\_\+array\mbox{[}1\mbox{]}=2, bcd\+\_\+array\mbox{[}2\mbox{]}=3
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[inclusions]=============================================*/}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}gpio\_mcu.h"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[macros\ and\ definitions]=================================*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[internal\ data\ definition]===============================*/}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ gpio\_t\ pin;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ io\_t\ dir;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}\ \mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}};\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[internal\ functions\ declaration]=========================*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{int8\_t\ \mbox{\hyperlink{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac}{convertToBcdArray}}(uint32\_t\ data,\ uint8\_t\ digits,\ uint8\_t\ *\ bcd\_number)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ digits;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ data\ \%\ 10\ obtiene\ el\ último\ dígito\ decimal\ de\ data\ (el\ dígito\ menos\ significativo)\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ bcd\_number[digits-\/i-\/1]\ =\ (data\ \%\ 10);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ data\ /=\ 10;\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ para\ desplazar\ de\ derecha\ a\ izquierda\ */}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{guia1__ej4_8c_a0661abe83ab744fce1666fb417b3fea7}{configurar\_pines}}(\mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}}\ *gpio,\ uint8\_t\ bcd\_number)\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((1\ <<\ i)\ \&\ bcd\_number)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GPIOOn(gpio[i].pin);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GPIOOff(gpio[i].pin);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{guia1__ej4_8c_a7fbc285e785128c2704d101141880eaa}{mostrar\_numero\_display}}(uint32\_t\ data,\ uint8\_t\ digits,\ \mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}}\ *gpio\_bcd,\ \mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}}\ *gpio\_display)\{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Crear\ arreglo\ para\ almacenar\ los\ dígitos\ BCD\ */}}
+\DoxyCodeLine{\ \ \ \ uint8\_t\ bcd\_number[digits];}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Convertir\ el\ número\ a\ BCD\ usando\ la\ función\ del\ punto\ 4\ */}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac}{convertToBcdArray}}(data,\ digits,\ bcd\_number)\ !=\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ en\ conversión\ BCD\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}Mostrando\ número\ \%"{}}\ PRIu32\ \textcolor{stringliteral}{"{}\ en\ display:\(\backslash\)n"{}},\ data);}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Recorrer\ cada\ dígito\ para\ mostrarlo\ en\ el\ display\ */}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ 0;\ d\ <\ digits;\ d++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Paso\ 1:\ Apagar\ todos\ los\ dígitos\ del\ display\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ digits;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GPIOOff(gpio\_display[i].pin);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Paso\ 2:\ Configurar\ los\ pines\ BCD\ con\ el\ valor\ del\ dígito\ actual\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{guia1__ej4_8c_a0661abe83ab744fce1666fb417b3fea7}{configurar\_pines}}(gpio\_bcd,\ bcd\_number[d]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Paso\ 3:\ Activar\ solo\ el\ dígito\ actual\ del\ display\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ GPIOOn(gpio\_display[d].pin);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Información\ de\ debug\ para\ seguimiento\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\ \ Dígito\ \%d\ (posición\ \%d):\ valor\ \%u\ -\/>\ GPIO\_\%u\ activado\(\backslash\)n"{}},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d+1,\ d,\ bcd\_number[d],\ gpio\_display[d].pin);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Para\ simulación,\ apagamos\ el\ dígito\ actual\ antes\ del\ siguiente\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ GPIOOff(gpio\_display[d].pin);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}Display\ actualizado\ completamente\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[external\ functions\ definition]==========================*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{guia1__ej4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\_main}}(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ uint32\_t\ data\ =\ 138;}
+\DoxyCodeLine{\ \ \ \ uint8\_t\ digits\ =\ 3;}
+\DoxyCodeLine{\ \ \ \ uint8\_t\ bcd\_number[digits];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Vector\ de\ configuración\ para\ los\ 4\ bits\ BCD\ */}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}}\ gpio\_bcd[4]\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_20,\ GPIO\_OUTPUT\},\ \ \textcolor{comment}{//\ b0\ -\/\ bit\ menos\ significativo}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_21,\ GPIO\_OUTPUT\},\ \ \textcolor{comment}{//\ b1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_22,\ GPIO\_OUTPUT\},\ \ \textcolor{comment}{//\ b2\ \ }}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_23,\ GPIO\_OUTPUT\}\ \ \ \textcolor{comment}{//\ b3\ -\/\ bit\ más\ significativo}}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Vector\ de\ configuración\ para\ selección\ de\ dígitos\ del\ display\ */}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structgpio_conf__t}{gpioConf\_t}}\ gpio\_display[3]\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_19,\ GPIO\_OUTPUT\},\ \ \textcolor{comment}{//\ Dígito\ 1\ (más\ significativo)}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_18,\ GPIO\_OUTPUT\},\ \ \textcolor{comment}{//\ Dígito\ 2\ (medio)}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{GPIO\_9,\ \ GPIO\_OUTPUT\}\ \ \ \textcolor{comment}{//\ Dígito\ 3\ (menos\ significativo)}}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Inicializar\ todos\ los\ GPIOs\ BCD\ como\ salidas\ */}\ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ GPIOInit(gpio\_bcd[i].pin,\ gpio\_bcd[i].dir);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Inicializar\ todos\ los\ GPIOs\ del\ display\ como\ salidas\ */}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ GPIOInit(gpio\_display[i].pin,\ gpio\_display[i].dir);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}===\ ACTIVIDAD\ 4:\ Conversión\ a\ BCD\ ===\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac}{convertToBcdArray}}(data,\ digits,\ bcd\_number)\ !=\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}convertToBcdArray:\ error\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}Número:\ \%"{}}\ PRIu32\ \textcolor{stringliteral}{"{}\ convertido\ a\ BCD:\(\backslash\)n"{}},\ data);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}===\ ACTIVIDAD\ 5:\ Configuración\ individual\ de\ dígitos\ BCD\ ===\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ digits;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%u\ "{}},\ bcd\_number[i]);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}===\ ACTIVIDAD\ 6:\ Display\ completo\ con\ multiplexado\ ===\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Mostrar\ el\ número\ completo\ en\ el\ display\ usando\ ambos\ vectores\ de\ GPIO\ */}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{guia1__ej4_8c_a7fbc285e785128c2704d101141880eaa}{mostrar\_numero\_display}}(data,\ digits,\ gpio\_bcd,\ gpio\_display);}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Pruebas\ adicionales\ comentadas\ -\/\ descomentar\ para\ probar\ otros\ números\ */}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*printf("{}Probando\ con\ número\ 456:\(\backslash\)n"{});}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ mostrar\_numero\_display(456,\ 3,\ gpio\_bcd,\ gpio\_display);}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ printf("{}Probando\ con\ número\ 789:\(\backslash\)n"{});}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ mostrar\_numero\_display(789,\ 3,\ gpio\_bcd,\ gpio\_display);}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*==================[end\ of\ file]============================================*/}}
+
+\end{DoxyCodeInclude}
+ 

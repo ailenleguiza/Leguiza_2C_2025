@@ -1,0 +1,88 @@
+\doxysection{main/guia1\+\_\+ej4.c File Reference}
+\hypertarget{guia1__ej4_8c}{}\label{guia1__ej4_8c}\index{main/guia1\_ej4.c@{main/guia1\_ej4.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include "{}gpio\+\_\+mcu.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Estructura que representa la configuración de un pin GPIO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int8\+\_\+t \mbox{\hyperlink{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac}{convert\+To\+Bcd\+Array}} (uint32\+\_\+t data, uint8\+\_\+t digits, uint8\+\_\+t \texorpdfstring{$\ast$}{*}bcd\+\_\+number)
+\item 
+void \mbox{\hyperlink{guia1__ej4_8c_a0661abe83ab744fce1666fb417b3fea7}{configurar\+\_\+pines}} (\mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}gpio, uint8\+\_\+t bcd\+\_\+number)
+\item 
+void \mbox{\hyperlink{guia1__ej4_8c_a7fbc285e785128c2704d101141880eaa}{mostrar\+\_\+numero\+\_\+display}} (uint32\+\_\+t data, uint8\+\_\+t digits, \mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}gpio\+\_\+bcd, \mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}gpio\+\_\+display)
+\item 
+void \mbox{\hyperlink{guia1__ej4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\+\_\+main}} (void)
+\begin{DoxyCompactList}\small\item\em Función principal de la aplicación. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{guia1__ej4_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{guia1__ej4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\index{guia1\_ej4.c@{guia1\_ej4.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!guia1\_ej4.c@{guia1\_ej4.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily \label{guia1__ej4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70} 
+void app\+\_\+main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Función principal de la aplicación. 
+
+Esta función implementa las actividades 4, 5 y 6 del ejercicio\+:
+\begin{DoxyItemize}
+\item Actividad 4\+: Conversión de número a BCD
+\item Actividad 5\+: Configuración individual de dígitos en GPIOs BCD ~\newline
+
+\item Actividad 6\+: Visualización completa en display multiplexado
+\end{DoxyItemize}
+
+La función inicializa los GPIOs necesarios, prueba la conversión BCD, muestra cada dígito individualmente y finalmente presenta el número completo en un display multiplexado.
+
+\begin{DoxyNote}{Note}
+Utiliza el número 138 como ejemplo de prueba 
+
+Configura 7 GPIOs en total\+: 4 para datos BCD + 3 para selección de dígitos 
+
+Los GPIOs deben estar disponibles en la plataforma de hardware utilizada
+\end{DoxyNote}
+Configuración de hardware requerida\+:
+\begin{DoxyItemize}
+\item GPIO\+\_\+20, GPIO\+\_\+21, GPIO\+\_\+22, GPIO\+\_\+23\+: Datos BCD (b0-\/b3)
+\item GPIO\+\_\+19, GPIO\+\_\+18, GPIO\+\_\+9\+: Selección de dígitos del display 
+\end{DoxyItemize}\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia1\+\_\+ej4/main/guia1\+\_\+ej4.\+c}}.\end{Desc}
+\Hypertarget{guia1__ej4_8c_a0661abe83ab744fce1666fb417b3fea7}\index{guia1\_ej4.c@{guia1\_ej4.c}!configurar\_pines@{configurar\_pines}}
+\index{configurar\_pines@{configurar\_pines}!guia1\_ej4.c@{guia1\_ej4.c}}
+\doxysubsubsection{\texorpdfstring{configurar\_pines()}{configurar\_pines()}}
+{\footnotesize\ttfamily \label{guia1__ej4_8c_a0661abe83ab744fce1666fb417b3fea7} 
+void configurar\+\_\+pines (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gpio}{, }\item[{uint8\+\_\+t}]{bcd\+\_\+number}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia1\+\_\+ej4/main/guia1\+\_\+ej4.\+c}}.\end{Desc}
+\Hypertarget{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac}\index{guia1\_ej4.c@{guia1\_ej4.c}!convertToBcdArray@{convertToBcdArray}}
+\index{convertToBcdArray@{convertToBcdArray}!guia1\_ej4.c@{guia1\_ej4.c}}
+\doxysubsubsection{\texorpdfstring{convertToBcdArray()}{convertToBcdArray()}}
+{\footnotesize\ttfamily \label{guia1__ej4_8c_a52ee2e8838ceab35f8bdc0f4e58a0dac} 
+int8\+\_\+t convert\+To\+Bcd\+Array (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{data}{, }\item[{uint8\+\_\+t}]{digits}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{bcd\+\_\+number}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia1\+\_\+ej4/main/guia1\+\_\+ej4.\+c}}.\end{Desc}
+\Hypertarget{guia1__ej4_8c_a7fbc285e785128c2704d101141880eaa}\index{guia1\_ej4.c@{guia1\_ej4.c}!mostrar\_numero\_display@{mostrar\_numero\_display}}
+\index{mostrar\_numero\_display@{mostrar\_numero\_display}!guia1\_ej4.c@{guia1\_ej4.c}}
+\doxysubsubsection{\texorpdfstring{mostrar\_numero\_display()}{mostrar\_numero\_display()}}
+{\footnotesize\ttfamily \label{guia1__ej4_8c_a7fbc285e785128c2704d101141880eaa} 
+void mostrar\+\_\+numero\+\_\+display (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{data}{, }\item[{uint8\+\_\+t}]{digits}{, }\item[{\mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gpio\+\_\+bcd}{, }\item[{\mbox{\hyperlink{structgpio_conf__t}{gpio\+Conf\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gpio\+\_\+display}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_repositorios_2_leguiza_2_c_2025_2firmware_2projects_2guia1_ej4_2main_2guia1_ej4_8c-example}{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia1\+\_\+ej4/main/guia1\+\_\+ej4.\+c}}.\end{Desc}
