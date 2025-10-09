@@ -1,0 +1,349 @@
+\doxysection{C\+:/\+Repositorios/\+Leguiza\+\_\+2\+C\+\_\+2025/firmware/projects/guia2\+\_\+3/main/guia2\+\_\+3.c File Reference}
+\hypertarget{guia2__3_8c}{}\label{guia2__3_8c}\index{C:/Repositorios/Leguiza\_2C\_2025/firmware/projects/guia2\_3/main/guia2\_3.c@{C:/Repositorios/Leguiza\_2C\_2025/firmware/projects/guia2\_3/main/guia2\_3.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+{\ttfamily \#include "{}switch.\+h"{}}\newline
+{\ttfamily \#include "{}math.\+h"{}}\newline
+{\ttfamily \#include "{}gpio\+\_\+mcu.\+h"{}}\newline
+{\ttfamily \#include "{}hc\+\_\+sr04.\+h"{}}\newline
+{\ttfamily \#include "{}lcditse0803.\+h"{}}\newline
+{\ttfamily \#include "{}timer\+\_\+mcu.\+h"{}}\newline
+{\ttfamily \#include "{}uart\+\_\+mcu.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{guia2__3_8c_a8c0e695db9ea0899c79b9c5493827b70}{CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD1}}~1000000
+\begin{DoxyCompactList}\small\item\em Periodo de la interrupción del temporizador A en microsegundos. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{guia2__3_8c_a3df1b4cad09974bfc68858fad7cdc054}{CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD}}~500000
+\begin{DoxyCompactList}\small\item\em Periodo de la interrupción del temporizador B en microsegundos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{guia2__3_8c_afaccfed84cd1498a05ea04a65f1209b1}{Func\+TimerA}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Función que se ejecuta en la interrupción del temporizador A. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a5088c3325764095ca222dc78c328f466}{Func\+TimerB}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Función invocada en la interrupción del timer B. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_af3d5c13a014e4e1e9e58b843ece43e59}{medirdistancia}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea de Free\+RTOS que mide la distancia utilizando el sensor HC-\/\+SR04. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a99fb1c4e62e79c95fd7542235954f294}{Cambio\+Encendido}} ()
+\begin{DoxyCompactList}\small\item\em Función que cambia el estado de la variable {\ttfamily encendido}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a285de706a1d1fbd5d4f827260ae8f2de}{Cambio\+Hold}} ()
+\begin{DoxyCompactList}\small\item\em Función que cambia el estado de la variable {\ttfamily hold}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_afbeb30f5a4e35e55d9e35358b572b5d0}{Leds}} ()
+\begin{DoxyCompactList}\small\item\em Controla el estado de los LEDs en función de la distancia medida. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_acac7b6f1f6c6921d702063b349ad541d}{mostrar\+Distancia}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea de Free\+RTOS que muestra la distancia en la pantalla LCD y controla los LEDs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a342773b5754df601b5cbc457e8a0e76a}{Uart\+Task}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea que envía la distancia medida a través del puerto UART. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a25a77f34dc17f4cf317b396351fa5862}{cambio\+Estado}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Función que cambia el estado de las variables {\ttfamily encendido} y {\ttfamily hold} basándose en el input UART. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__3_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\+\_\+main}} (void)
+\begin{DoxyCompactList}\small\item\em Función principal que inicializa el sistema y las tareas de Free\+RTOS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{guia2__3_8c_af0129e079b57e897edf00f22cc25f3d4}{hold}} = false
+\begin{DoxyCompactList}\small\item\em Variable que indica si el sistema está en modo de encendido. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{guia2__3_8c_a5332d02d82dacdfb5c6dc01cb428b013}{encendido}} = true
+\begin{DoxyCompactList}\small\item\em Variable que indica si la medición de distancia está activada. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{guia2__3_8c_ac3498e35b62924f5eb79dd0e1f50e031}{distancia}} = 0
+\begin{DoxyCompactList}\small\item\em Valor de distancia medida por el sensor HC-\/\+SR04. \end{DoxyCompactList}\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{guia2__3_8c_ae39b1f9d63940785c267968dce470a67}{Mido}} = NULL
+\begin{DoxyCompactList}\small\item\em Handle para la tarea de medición de distancia. \end{DoxyCompactList}\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{guia2__3_8c_a317827d66169ff37a4679535d5c15028}{Muestro}} = NULL
+\begin{DoxyCompactList}\small\item\em Handle para la tarea de muestra de distancia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{guia2__3_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{guia2__3_8c_a3df1b4cad09974bfc68858fad7cdc054}\index{guia2\_3.c@{guia2\_3.c}!CONFIG\_BLINK\_PERIOD@{CONFIG\_BLINK\_PERIOD}}
+\index{CONFIG\_BLINK\_PERIOD@{CONFIG\_BLINK\_PERIOD}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_BLINK\_PERIOD}{CONFIG\_BLINK\_PERIOD}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a3df1b4cad09974bfc68858fad7cdc054} 
+\#define CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD~500000}
+
+
+
+Periodo de la interrupción del temporizador B en microsegundos. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00057}{57}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a8c0e695db9ea0899c79b9c5493827b70}\index{guia2\_3.c@{guia2\_3.c}!CONFIG\_BLINK\_PERIOD1@{CONFIG\_BLINK\_PERIOD1}}
+\index{CONFIG\_BLINK\_PERIOD1@{CONFIG\_BLINK\_PERIOD1}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_BLINK\_PERIOD1}{CONFIG\_BLINK\_PERIOD1}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a8c0e695db9ea0899c79b9c5493827b70} 
+\#define CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD1~1000000}
+
+
+
+Periodo de la interrupción del temporizador A en microsegundos. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00052}{52}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{guia2__3_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{guia2__3_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\index{guia2\_3.c@{guia2\_3.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a630544a7f0a2cc40d8a7fefab7e2fe70} 
+void app\+\_\+main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Función principal que inicializa el sistema y las tareas de Free\+RTOS. 
+
+Esta función configura los LEDs, los interruptores, la pantalla LCD y el sensor HC-\/\+SR04. Luego crea las tareas de Free\+RTOS para medir la distancia y mostrar la distancia en la pantalla LCD. 
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00242}{242}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a99fb1c4e62e79c95fd7542235954f294}\index{guia2\_3.c@{guia2\_3.c}!CambioEncendido@{CambioEncendido}}
+\index{CambioEncendido@{CambioEncendido}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{CambioEncendido()}{CambioEncendido()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a99fb1c4e62e79c95fd7542235954f294} 
+void Cambio\+Encendido (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Función que cambia el estado de la variable {\ttfamily encendido}. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00126}{126}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a25a77f34dc17f4cf317b396351fa5862}\index{guia2\_3.c@{guia2\_3.c}!cambioEstado@{cambioEstado}}
+\index{cambioEstado@{cambioEstado}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{cambioEstado()}{cambioEstado()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a25a77f34dc17f4cf317b396351fa5862} 
+void cambio\+Estado (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Función que cambia el estado de las variables {\ttfamily encendido} y {\ttfamily hold} basándose en el input UART. 
+
+Esta función permite cambiar el estado de las variables mediante comandos enviados a través del puerto UART.
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no se utiliza en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00226}{226}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a285de706a1d1fbd5d4f827260ae8f2de}\index{guia2\_3.c@{guia2\_3.c}!CambioHold@{CambioHold}}
+\index{CambioHold@{CambioHold}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{CambioHold()}{CambioHold()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a285de706a1d1fbd5d4f827260ae8f2de} 
+void Cambio\+Hold (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Función que cambia el estado de la variable {\ttfamily hold}. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00134}{134}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_afaccfed84cd1498a05ea04a65f1209b1}\index{guia2\_3.c@{guia2\_3.c}!FuncTimerA@{FuncTimerA}}
+\index{FuncTimerA@{FuncTimerA}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{FuncTimerA()}{FuncTimerA()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_afaccfed84cd1498a05ea04a65f1209b1} 
+void Func\+TimerA (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Función que se ejecuta en la interrupción del temporizador A. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00092}{92}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a5088c3325764095ca222dc78c328f466}\index{guia2\_3.c@{guia2\_3.c}!FuncTimerB@{FuncTimerB}}
+\index{FuncTimerB@{FuncTimerB}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{FuncTimerB()}{FuncTimerB()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a5088c3325764095ca222dc78c328f466} 
+void Func\+TimerB (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Función invocada en la interrupción del timer B. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00100}{100}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_afbeb30f5a4e35e55d9e35358b572b5d0}\index{guia2\_3.c@{guia2\_3.c}!Leds@{Leds}}
+\index{Leds@{Leds}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{Leds()}{Leds()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_afbeb30f5a4e35e55d9e35358b572b5d0} 
+void Leds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Controla el estado de los LEDs en función de la distancia medida. 
+
+Esta función enciende o apaga los LEDs basándose en el valor de {\ttfamily distancia}. 
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00144}{144}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_af3d5c13a014e4e1e9e58b843ece43e59}\index{guia2\_3.c@{guia2\_3.c}!medirdistancia@{medirdistancia}}
+\index{medirdistancia@{medirdistancia}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{medirdistancia()}{medirdistancia()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_af3d5c13a014e4e1e9e58b843ece43e59} 
+void medirdistancia (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea de Free\+RTOS que mide la distancia utilizando el sensor HC-\/\+SR04. 
+
+Esta función lee continuamente la distancia del sensor y actualiza la variable {\ttfamily distancia}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se utiliza en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00111}{111}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_acac7b6f1f6c6921d702063b349ad541d}\index{guia2\_3.c@{guia2\_3.c}!mostrarDistancia@{mostrarDistancia}}
+\index{mostrarDistancia@{mostrarDistancia}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{mostrarDistancia()}{mostrarDistancia()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_acac7b6f1f6c6921d702063b349ad541d} 
+void mostrar\+Distancia (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea de Free\+RTOS que muestra la distancia en la pantalla LCD y controla los LEDs. 
+
+Esta función actualiza el estado de los LEDs y la pantalla LCD en función de la distancia medida y el estado de {\ttfamily encendido} y {\ttfamily hold}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se utiliza en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00179}{179}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a342773b5754df601b5cbc457e8a0e76a}\index{guia2\_3.c@{guia2\_3.c}!UartTask@{UartTask}}
+\index{UartTask@{UartTask}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{UartTask()}{UartTask()}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a342773b5754df601b5cbc457e8a0e76a} 
+void Uart\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea que envía la distancia medida a través del puerto UART. 
+
+Esta función envía la distancia al puerto UART para que pueda ser monitoreada desde una PC.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se utiliza en esta función). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00207}{207}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{guia2__3_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{guia2__3_8c_ac3498e35b62924f5eb79dd0e1f50e031}\index{guia2\_3.c@{guia2\_3.c}!distancia@{distancia}}
+\index{distancia@{distancia}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{distancia}{distancia}}
+{\footnotesize\ttfamily \label{guia2__3_8c_ac3498e35b62924f5eb79dd0e1f50e031} 
+uint32\+\_\+t distancia = 0}
+
+
+
+Valor de distancia medida por el sensor HC-\/\+SR04. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00073}{73}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a5332d02d82dacdfb5c6dc01cb428b013}\index{guia2\_3.c@{guia2\_3.c}!encendido@{encendido}}
+\index{encendido@{encendido}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{encendido}{encendido}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a5332d02d82dacdfb5c6dc01cb428b013} 
+bool encendido = true}
+
+
+
+Variable que indica si la medición de distancia está activada. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00068}{68}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_af0129e079b57e897edf00f22cc25f3d4}\index{guia2\_3.c@{guia2\_3.c}!hold@{hold}}
+\index{hold@{hold}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{hold}{hold}}
+{\footnotesize\ttfamily \label{guia2__3_8c_af0129e079b57e897edf00f22cc25f3d4} 
+bool hold = false}
+
+
+
+Variable que indica si el sistema está en modo de encendido. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00063}{63}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_ae39b1f9d63940785c267968dce470a67}\index{guia2\_3.c@{guia2\_3.c}!Mido@{Mido}}
+\index{Mido@{Mido}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{Mido}{Mido}}
+{\footnotesize\ttfamily \label{guia2__3_8c_ae39b1f9d63940785c267968dce470a67} 
+Task\+Handle\+\_\+t Mido = NULL}
+
+
+
+Handle para la tarea de medición de distancia. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00078}{78}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
+\Hypertarget{guia2__3_8c_a317827d66169ff37a4679535d5c15028}\index{guia2\_3.c@{guia2\_3.c}!Muestro@{Muestro}}
+\index{Muestro@{Muestro}!guia2\_3.c@{guia2\_3.c}}
+\doxysubsubsection{\texorpdfstring{Muestro}{Muestro}}
+{\footnotesize\ttfamily \label{guia2__3_8c_a317827d66169ff37a4679535d5c15028} 
+Task\+Handle\+\_\+t Muestro = NULL}
+
+
+
+Handle para la tarea de muestra de distancia. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__3_8c_source_l00083}{83}} of file \mbox{\hyperlink{guia2__3_8c_source}{guia2\+\_\+3.\+c}}.
+
