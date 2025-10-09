@@ -1,0 +1,48 @@
+\chapter{guia2\+\_\+ej1 }
+\hypertarget{index}{}\label{index}\index{guia2\_ej1@{guia2\_ej1}}
+\hypertarget{index_genDesc}{}\doxysection{\texorpdfstring{General Description}{General Description}}\label{index_genDesc}
+Este archivo contiene la implementación de un sistema basado en Free\+RTOS que mide la distancia utilizando un sensor ultrasónico HC-\/\+SR04 y controla el estado de varios LEDs y una pantalla LCD basada en los valores medidos. El sistema responde a las entradas de interruptores para encender/apagar la medición de distancia y alternar el comportamiento de la pantalla LCD y los LEDs.\hypertarget{index_hardConn}{}\doxysection{\texorpdfstring{Hardware Connection}{Hardware Connection}}\label{index_hardConn}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Peripheral  }&\cellcolor{\tableheadbgcolor}\textbf{ ESP32  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Peripheral  }&\cellcolor{\tableheadbgcolor}\textbf{ ESP32  }\\\cline{1-2}
+\endhead
+PIN\+\_\+X  &GPIO\+\_\+X  \\\cline{1-2}
+\end{longtabu}
+\hypertarget{index_changelog}{}\doxysection{\texorpdfstring{Changelog}{Changelog}}\label{index_changelog}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Date  }&\cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Date  }&\cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-2}
+\endhead
+2025-\/09-\/10  &Creación del archivo con control de LEDs y medición de distancia  \\\cline{1-2}
+\end{longtabu}
+\hypertarget{index_author}{}\doxysection{\texorpdfstring{Author}{Author}}\label{index_author}
+Florencia Ailen Leguiza Scandizzo (\href{mailto:florencia.leguiza@ingenieria.uner.edu.ar}{\texttt{florencia.\+leguiza@ingenieria.\+uner.\+edu.\+ar}})
+
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\hypertarget{index_license}{}\doxysection{\texorpdfstring{License}{License}}\label{index_license}
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.\hypertarget{index_usage}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{index_usage}
+El archivo configura y controla tres LEDs, una pantalla LCD y un sensor ultrasónico HC-\/\+SR04. El sistema crea tres tareas de Free\+RTOS\+:
+\begin{DoxyItemize}
+\item {\ttfamily medirdistancia}\+: Lee la distancia del sensor ultrasónico.
+\item {\ttfamily valorteclas}\+: Lee el estado de los interruptores para cambiar el comportamiento del sistema.
+\item {\ttfamily mostrar\+Distancia}\+: Actualiza el estado de los LEDs y la pantalla LCD en función de la distancia medida y el estado de los interruptores.
+\end{DoxyItemize}\hypertarget{index_dependencies}{}\doxysection{\texorpdfstring{Dependencies}{Dependencies}}\label{index_dependencies}
+
+\begin{DoxyItemize}
+\item Free\+RTOS
+\item Drivers de hardware (LED, interruptores, HC-\/\+SR04, LCD) 
+\end{DoxyItemize}

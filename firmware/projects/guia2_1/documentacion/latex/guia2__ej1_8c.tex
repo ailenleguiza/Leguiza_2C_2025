@@ -1,0 +1,218 @@
+\doxysection{main/guia2\+\_\+ej1.c File Reference}
+\hypertarget{guia2__ej1_8c}{}\label{guia2__ej1_8c}\index{main/guia2\_ej1.c@{main/guia2\_ej1.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+{\ttfamily \#include "{}switch.\+h"{}}\newline
+{\ttfamily \#include "{}math.\+h"{}}\newline
+{\ttfamily \#include "{}gpio\+\_\+mcu.\+h"{}}\newline
+{\ttfamily \#include "{}hc\+\_\+sr04.\+h"{}}\newline
+{\ttfamily \#include "{}lcditse0803.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{guia2__ej1_8c_a8c0e695db9ea0899c79b9c5493827b70}{CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD1}}~1000
+\begin{DoxyCompactList}\small\item\em Periodo de parpadeo en milisegundos para la tarea de medición de distancia. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{guia2__ej1_8c_a3df1b4cad09974bfc68858fad7cdc054}{CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD}}~100
+\begin{DoxyCompactList}\small\item\em Periodo de parpadeo en milisegundos para la tarea de lectura de interruptores. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{guia2__ej1_8c_af3d5c13a014e4e1e9e58b843ece43e59}{medirdistancia}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea de Free\+RTOS que mide la distancia utilizando el sensor HC-\/\+SR04. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__ej1_8c_a53765cc0948e4dca3fc5bd6b3a99be1e}{valorteclas}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea de Free\+RTOS que lee el estado de los interruptores. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__ej1_8c_afbeb30f5a4e35e55d9e35358b572b5d0}{Leds}} ()
+\begin{DoxyCompactList}\small\item\em Controla el estado de los LEDs en función de la distancia medida. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__ej1_8c_acac7b6f1f6c6921d702063b349ad541d}{mostrar\+Distancia}} (void \texorpdfstring{$\ast$}{*}pv\+Parameter)
+\begin{DoxyCompactList}\small\item\em Tarea de Free\+RTOS que muestra la distancia en la pantalla LCD y controla los LEDs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__ej1_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\+\_\+main}} (void)
+\begin{DoxyCompactList}\small\item\em Función principal que inicializa el sistema y las tareas de Free\+RTOS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{guia2__ej1_8c_af0129e079b57e897edf00f22cc25f3d4}{hold}} = false
+\begin{DoxyCompactList}\small\item\em Variable que indica si el sistema está en modo de encendido. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{guia2__ej1_8c_a5332d02d82dacdfb5c6dc01cb428b013}{encendido}} = true
+\begin{DoxyCompactList}\small\item\em Variable que indica si la medición de distancia está activada. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{guia2__ej1_8c_aec40b15ff3098bdb2425eb4dc9c11a18}{distancia}} = 0
+\begin{DoxyCompactList}\small\item\em Valor de distancia medida por el sensor HC-\/\+SR04. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{guia2__ej1_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{guia2__ej1_8c_a3df1b4cad09974bfc68858fad7cdc054}\index{guia2\_ej1.c@{guia2\_ej1.c}!CONFIG\_BLINK\_PERIOD@{CONFIG\_BLINK\_PERIOD}}
+\index{CONFIG\_BLINK\_PERIOD@{CONFIG\_BLINK\_PERIOD}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_BLINK\_PERIOD}{CONFIG\_BLINK\_PERIOD}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_a3df1b4cad09974bfc68858fad7cdc054} 
+\#define CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD~100}
+
+
+
+Periodo de parpadeo en milisegundos para la tarea de lectura de interruptores. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00065}{65}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_a8c0e695db9ea0899c79b9c5493827b70}\index{guia2\_ej1.c@{guia2\_ej1.c}!CONFIG\_BLINK\_PERIOD1@{CONFIG\_BLINK\_PERIOD1}}
+\index{CONFIG\_BLINK\_PERIOD1@{CONFIG\_BLINK\_PERIOD1}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_BLINK\_PERIOD1}{CONFIG\_BLINK\_PERIOD1}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_a8c0e695db9ea0899c79b9c5493827b70} 
+\#define CONFIG\+\_\+\+BLINK\+\_\+\+PERIOD1~1000}
+
+
+
+Periodo de parpadeo en milisegundos para la tarea de medición de distancia. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00060}{60}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{guia2__ej1_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{guia2__ej1_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\index{guia2\_ej1.c@{guia2\_ej1.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_a630544a7f0a2cc40d8a7fefab7e2fe70} 
+void app\+\_\+main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Función principal que inicializa el sistema y las tareas de Free\+RTOS. 
+
+Esta función configura los LEDs, los interruptores, la pantalla LCD y el sensor HC-\/\+SR04. Luego crea las tareas de Free\+RTOS para medir la distancia, leer el estado de los interruptores y mostrar la distancia. 
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00206}{206}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_afbeb30f5a4e35e55d9e35358b572b5d0}\index{guia2\_ej1.c@{guia2\_ej1.c}!Leds@{Leds}}
+\index{Leds@{Leds}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{Leds()}{Leds()}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_afbeb30f5a4e35e55d9e35358b572b5d0} 
+void Leds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Controla el estado de los LEDs en función de la distancia medida. 
+
+Esta función enciende o apaga los LEDs basándose en el valor de {\ttfamily distancia}. 
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00139}{139}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_af3d5c13a014e4e1e9e58b843ece43e59}\index{guia2\_ej1.c@{guia2\_ej1.c}!medirdistancia@{medirdistancia}}
+\index{medirdistancia@{medirdistancia}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{medirdistancia()}{medirdistancia()}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_af3d5c13a014e4e1e9e58b843ece43e59} 
+void medirdistancia (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea de Free\+RTOS que mide la distancia utilizando el sensor HC-\/\+SR04. 
+
+Esta función lee continuamente la distancia del sensor y actualiza la variable {\ttfamily distancia}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se usa en este caso). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00092}{92}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_acac7b6f1f6c6921d702063b349ad541d}\index{guia2\_ej1.c@{guia2\_ej1.c}!mostrarDistancia@{mostrarDistancia}}
+\index{mostrarDistancia@{mostrarDistancia}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{mostrarDistancia()}{mostrarDistancia()}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_acac7b6f1f6c6921d702063b349ad541d} 
+void mostrar\+Distancia (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea de Free\+RTOS que muestra la distancia en la pantalla LCD y controla los LEDs. 
+
+Esta función actualiza el estado de los LEDs y la pantalla LCD en función de la distancia medida y el estado de {\ttfamily encendido} y {\ttfamily hold}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se usa en este caso). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00177}{177}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_a53765cc0948e4dca3fc5bd6b3a99be1e}\index{guia2\_ej1.c@{guia2\_ej1.c}!valorteclas@{valorteclas}}
+\index{valorteclas@{valorteclas}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{valorteclas()}{valorteclas()}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_a53765cc0948e4dca3fc5bd6b3a99be1e} 
+void valorteclas (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameter}{}\end{DoxyParamCaption})}
+
+
+
+Tarea de Free\+RTOS que lee el estado de los interruptores. 
+
+Esta función lee continuamente el estado de los interruptores y modifica las variables {\ttfamily encendido} y {\ttfamily hold} en función de las teclas presionadas.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameter} & Parámetro opcional (no se usa en este caso). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00113}{113}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{guia2__ej1_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{guia2__ej1_8c_aec40b15ff3098bdb2425eb4dc9c11a18}\index{guia2\_ej1.c@{guia2\_ej1.c}!distancia@{distancia}}
+\index{distancia@{distancia}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{distancia}{distancia}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_aec40b15ff3098bdb2425eb4dc9c11a18} 
+uint16\+\_\+t distancia = 0}
+
+
+
+Valor de distancia medida por el sensor HC-\/\+SR04. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00081}{81}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_a5332d02d82dacdfb5c6dc01cb428b013}\index{guia2\_ej1.c@{guia2\_ej1.c}!encendido@{encendido}}
+\index{encendido@{encendido}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{encendido}{encendido}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_a5332d02d82dacdfb5c6dc01cb428b013} 
+bool encendido = true}
+
+
+
+Variable que indica si la medición de distancia está activada. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00076}{76}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
+\Hypertarget{guia2__ej1_8c_af0129e079b57e897edf00f22cc25f3d4}\index{guia2\_ej1.c@{guia2\_ej1.c}!hold@{hold}}
+\index{hold@{hold}!guia2\_ej1.c@{guia2\_ej1.c}}
+\doxysubsubsection{\texorpdfstring{hold}{hold}}
+{\footnotesize\ttfamily \label{guia2__ej1_8c_af0129e079b57e897edf00f22cc25f3d4} 
+bool hold = false}
+
+
+
+Variable que indica si el sistema está en modo de encendido. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__ej1_8c_source_l00071}{71}} of file \mbox{\hyperlink{guia2__ej1_8c_source}{guia2\+\_\+ej1.\+c}}.
+
