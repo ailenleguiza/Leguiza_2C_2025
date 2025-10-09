@@ -1,0 +1,223 @@
+\doxysection{main/guia2\+\_\+4.c File Reference}
+\hypertarget{guia2__4_8c}{}\label{guia2__4_8c}\index{main/guia2\_4.c@{main/guia2\_4.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+{\ttfamily \#include "{}switch.\+h"{}}\newline
+{\ttfamily \#include "{}analog\+\_\+io\+\_\+mcu.\+h"{}}\newline
+{\ttfamily \#include "{}uart\+\_\+mcu.\+h"{}}\newline
+{\ttfamily \#include "{}timer\+\_\+mcu.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{guia2__4_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~231
+\begin{DoxyCompactList}\small\item\em Tamaño del buffer de datos para la señal de ECG simulada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{guia2__4_8c_afaccfed84cd1498a05ea04a65f1209b1}{Func\+TimerA}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Función que se ejecuta en la interrupción del temporizador A. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__4_8c_a5088c3325764095ca222dc78c328f466}{Func\+TimerB}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Función que se ejecuta en la interrupción del temporizador B. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__4_8c_af32e2cabf3d779c20cdc13706026393a}{Funcion}} (void \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Tarea que lee una señal analógica y la envía por UART. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__4_8c_a3a20e1af53ab1822346d9d22b8de4062}{mostrarecg}} ()
+\begin{DoxyCompactList}\small\item\em Tarea que muestra los valores de la señal ECG en la salida D/A. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{guia2__4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\+\_\+main}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{guia2__4_8c_a1ebeb409da0781146e9ef82dda2528d0}{cambio}} = NULL
+\begin{DoxyCompactList}\small\item\em Constante para las funciones de conversión A/D y D/A. \end{DoxyCompactList}\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{guia2__4_8c_a2c75b4f34726e9b7a8dd42ca7fa1d31d}{main\+\_\+task\+\_\+handle}} = NULL
+\item 
+const char \mbox{\hyperlink{guia2__4_8c_a2dafb8b8179af8e9f4cc4df3f588e42e}{ecg}} \mbox{[}\mbox{\hyperlink{guia2__4_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Arreglo de valores de señal ECG simulada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{guia2__4_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{guia2__4_8c_a6b20d41d6252e9871430c242cb1a56e7}\index{guia2\_4.c@{guia2\_4.c}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\#define BUFFER\+\_\+\+SIZE~231}
+
+
+
+Tamaño del buffer de datos para la señal de ECG simulada. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00045}{45}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{guia2__4_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{guia2__4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\index{guia2\_4.c@{guia2\_4.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a630544a7f0a2cc40d8a7fefab7e2fe70} 
+void app\+\_\+main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00148}{148}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_af32e2cabf3d779c20cdc13706026393a}\index{guia2\_4.c@{guia2\_4.c}!Funcion@{Funcion}}
+\index{Funcion@{Funcion}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{Funcion()}{Funcion()}}
+{\footnotesize\ttfamily \label{guia2__4_8c_af32e2cabf3d779c20cdc13706026393a} 
+void Funcion (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Tarea que lee una señal analógica y la envía por UART. 
+
+Utiliza el canal CH1 para leer una señal A/D y envía el valor por UART.
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00113}{113}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_afaccfed84cd1498a05ea04a65f1209b1}\index{guia2\_4.c@{guia2\_4.c}!FuncTimerA@{FuncTimerA}}
+\index{FuncTimerA@{FuncTimerA}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{FuncTimerA()}{FuncTimerA()}}
+{\footnotesize\ttfamily \label{guia2__4_8c_afaccfed84cd1498a05ea04a65f1209b1} 
+void Func\+TimerA (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Función que se ejecuta en la interrupción del temporizador A. 
+
+Envía una notificación a la tarea encargada de la lectura de entrada analógica. (Para la tarea con \doxylink{guia2__4_8c_af32e2cabf3d779c20cdc13706026393a}{Funcion()})
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00089}{89}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_a5088c3325764095ca222dc78c328f466}\index{guia2\_4.c@{guia2\_4.c}!FuncTimerB@{FuncTimerB}}
+\index{FuncTimerB@{FuncTimerB}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{FuncTimerB()}{FuncTimerB()}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a5088c3325764095ca222dc78c328f466} 
+void Func\+TimerB (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Función que se ejecuta en la interrupción del temporizador B. 
+
+Envía una notificación a la tarea encargada de mostrar la señal ECG. (Para la tarea con \doxylink{guia2__4_8c_a3a20e1af53ab1822346d9d22b8de4062}{mostrarecg()})
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00101}{101}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_a3a20e1af53ab1822346d9d22b8de4062}\index{guia2\_4.c@{guia2\_4.c}!mostrarecg@{mostrarecg}}
+\index{mostrarecg@{mostrarecg}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{mostrarecg()}{mostrarecg()}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a3a20e1af53ab1822346d9d22b8de4062} 
+void mostrarecg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tarea que muestra los valores de la señal ECG en la salida D/A. 
+
+Toma los valores de la señal ECG simulada y los escribe en una salida D/A.
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & Parámetro opcional (no utilizado). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00133}{133}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{guia2__4_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{guia2__4_8c_a1ebeb409da0781146e9ef82dda2528d0}\index{guia2\_4.c@{guia2\_4.c}!cambio@{cambio}}
+\index{cambio@{cambio}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{cambio}{cambio}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a1ebeb409da0781146e9ef82dda2528d0} 
+Task\+Handle\+\_\+t cambio = NULL}
+
+
+
+Constante para las funciones de conversión A/D y D/A. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00052}{52}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_a2dafb8b8179af8e9f4cc4df3f588e42e}\index{guia2\_4.c@{guia2\_4.c}!ecg@{ecg}}
+\index{ecg@{ecg}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{ecg}{ecg}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a2dafb8b8179af8e9f4cc4df3f588e42e} 
+const char ecg\mbox{[}\mbox{\hyperlink{guia2__4_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ 76,\ 77,\ 78,\ 77,\ 79,\ 86,\ 81,\ 76,\ 84,\ 93,\ 85,\ 80,}
+\DoxyCodeLine{\ \ \ \ 89,\ 95,\ 89,\ 85,\ 93,\ 98,\ 94,\ 88,\ 98,\ 105,\ 96,\ 91,}
+\DoxyCodeLine{\ \ \ \ 99,\ 105,\ 101,\ 96,\ 102,\ 106,\ 101,\ 96,\ 100,\ 107,\ 101,}
+\DoxyCodeLine{\ \ \ \ 94,\ 100,\ 104,\ 100,\ 91,\ 99,\ 103,\ 98,\ 91,\ 96,\ 105,\ 95,}
+\DoxyCodeLine{\ \ \ \ 88,\ 95,\ 100,\ 94,\ 85,\ 93,\ 99,\ 92,\ 84,\ 91,\ 96,\ 87,\ 80,}
+\DoxyCodeLine{\ \ \ \ 83,\ 92,\ 86,\ 78,\ 84,\ 89,\ 79,\ 73,\ 81,\ 83,\ 78,\ 70,\ 80,\ 82,}
+\DoxyCodeLine{\ \ \ \ 79,\ 69,\ 80,\ 82,\ 81,\ 70,\ 75,\ 81,\ 77,\ 74,\ 79,\ 83,\ 82,\ 72,}
+\DoxyCodeLine{\ \ \ \ 80,\ 87,\ 79,\ 76,\ 85,\ 95,\ 87,\ 81,\ 88,\ 93,\ 88,\ 84,\ 87,\ 94,}
+\DoxyCodeLine{\ \ \ \ 86,\ 82,\ 85,\ 94,\ 85,\ 82,\ 85,\ 95,\ 86,\ 83,\ 92,\ 99,\ 91,\ 88,}
+\DoxyCodeLine{\ \ \ \ 94,\ 98,\ 95,\ 90,\ 97,\ 105,\ 104,\ 94,\ 98,\ 114,\ 117,\ 124,\ 144,}
+\DoxyCodeLine{\ \ \ \ 180,\ 210,\ 236,\ 253,\ 227,\ 171,\ 99,\ 49,\ 34,\ 29,\ 43,\ 69,\ 89,}
+\DoxyCodeLine{\ \ \ \ 89,\ 90,\ 98,\ 107,\ 104,\ 98,\ 104,\ 110,\ 102,\ 98,\ 103,\ 111,\ 101,}
+\DoxyCodeLine{\ \ \ \ 94,\ 103,\ 108,\ 102,\ 95,\ 97,\ 106,\ 100,\ 92,\ 101,\ 103,\ 100,\ 94,\ 98,}
+\DoxyCodeLine{\ \ \ \ 103,\ 96,\ 90,\ 98,\ 103,\ 97,\ 90,\ 99,\ 104,\ 95,\ 90,\ 99,\ 104,\ 100,\ 93,}
+\DoxyCodeLine{\ \ \ \ 100,\ 106,\ 101,\ 93,\ 101,\ 105,\ 103,\ 96,\ 105,\ 112,\ 105,\ 99,\ 103,\ 108,}
+\DoxyCodeLine{\ \ \ \ 99,\ 96,\ 102,\ 106,\ 99,\ 90,\ 92,\ 100,\ 87,\ 80,\ 82,\ 88,\ 77,\ 69,\ 75,\ 79,}
+\DoxyCodeLine{\ \ \ \ 74,\ 67,\ 71,\ 78,\ 72,\ 67,\ 73,\ 81,\ 77,\ 71,\ 75,\ 84,\ 79,\ 77,\ 77,\ 76,\ 76,}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Arreglo de valores de señal ECG simulada. 
+
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00059}{59}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
+\Hypertarget{guia2__4_8c_a2c75b4f34726e9b7a8dd42ca7fa1d31d}\index{guia2\_4.c@{guia2\_4.c}!main\_task\_handle@{main\_task\_handle}}
+\index{main\_task\_handle@{main\_task\_handle}!guia2\_4.c@{guia2\_4.c}}
+\doxysubsubsection{\texorpdfstring{main\_task\_handle}{main\_task\_handle}}
+{\footnotesize\ttfamily \label{guia2__4_8c_a2c75b4f34726e9b7a8dd42ca7fa1d31d} 
+Task\+Handle\+\_\+t main\+\_\+task\+\_\+handle = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{guia2__4_8c_source_l00053}{53}} of file \mbox{\hyperlink{guia2__4_8c_source}{guia2\+\_\+4.\+c}}.
+
